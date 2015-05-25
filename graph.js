@@ -56,10 +56,10 @@ function getBorders(d, coords){
   return borders
 }
 function displayData(d){
-  var x = d3.event.x;
-  var y = d3.event.y;
+  var x = d3.event.clientX;
+  var y = d3.event.clientY;
   var tooltip = d3.select('#tooltip')
-    .style({display:"block",top:y,left:x})
+    .style({display:"block","top":y+"px","left":x+"px"})
 
   tooltip
     .append("div").html(d.name)
