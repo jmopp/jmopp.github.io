@@ -40,10 +40,10 @@ function changeSelection(e) {
     drawOverlay();
   }
 }
-function handleFiles(files, overlay) {
+function handleFiles(files, isOverlay) {
   var image = files[0];
   var reader = new FileReader();
-  if(overlay) {
+  if(isOverlay) {
     reader.onload = loadOverlay;
   } else {
     reader.onload = loadUnderlay;
