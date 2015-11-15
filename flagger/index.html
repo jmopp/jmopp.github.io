@@ -37,9 +37,7 @@ function changeSelection(e) {
   if(underlay) {
     clearCanvas();
     drawUnderlay();
-    if(overlay) {
-      drawOverlay();
-    }
+    drawOverlay();
   }
 }
 function handleFiles(files, overlay) {
@@ -76,25 +74,27 @@ function drawUnderlay() {
   ctx.globalAlpha = 0.5;
 }
 function drawOverlay() {
-  // This overlay should be centred properly
-  // Should give options to centre, scale, or top left
-  var canvasRatio=canvas.width/canvas.height;
-  var overlayRatio = overlay.width/overlay.height;
-  if(canvasRatio>overlayRatio) {
-    var scaleWidth = Math.max(overlay.width, canvas.width);
-    var scaleHeight = scaleWidth*overlayRatio;
-  } else {
-    var scaleHeight = Math.max(overlay.height, canvas.height);
-    var scaleWidth = scaleHeight*overlayRatio;
-  }
-  if(centering=="scale") {
-    ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-  } else if(centering=="topleft") {
-    ctx.drawImage(overlay, 0, 0, scaleWidth, scaleHeight);
-  } else if(centering=="centre") {
-    var sx = (overlay.width-canvas.width)/2;
-    var sy = (overlay.height-canvas.height)/2;
-    ctx.drawImage(overlay, sx, sy, overlay.width, overlay.height, 0, 0, scaleWidth, scaleHeight);
+  if(overlay) {
+    // This overlay should be centred properly
+    // Should give options to centre, scale, or top left
+    var canvasRatio=canvas.width/canvas.height;
+    var overlayRatio = overlay.width/overlay.height;
+    if(canvasRatio>overlayRatio) {
+      var scaleWidth = Math.max(overlay.width, canvas.width);
+      var scaleHeight = scaleWidth*overlayRatio;
+    } else {
+      var scaleHeight = Math.max(overlay.height, canvas.height);
+      var scaleWidth = scaleHeight*overlayRatio;
+    }
+    if(centering=="scale") {
+      ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+    } else if(centering=="topleft") {
+      ctx.drawImage(overlay, 0, 0, scaleWidth, scaleHeight);
+    } else if(centering=="centre") {
+      var sx = (overlay.width-canvas.width)/2;
+      var sy = (overlay.height-canvas.height)/2;
+      ctx.drawImage(overlay, sx, sy, overlay.width, overlay.height, 0, 0, scaleWidth, scaleHeight);
+    }
   }
 }
 function loadOverlay(e) {
@@ -118,9 +118,7 @@ function loadUnderlay(e) {
   underlay = getImage(e);
   clearCanvas();
   drawUnderlay();
-  if(overlay) {
-    ctx.drawImage(overlay, 0, 0);
-  }
+  drawOverlay();
 }
 function getImage(e) {
   var image = new Image();
